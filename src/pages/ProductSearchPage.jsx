@@ -24,7 +24,7 @@ function ProductSearchPage({
         <WishSectionIcon wishList={wishList} />
       </Navbar>
 
-      <main className="bg-productPageBg bg-cover p-6 sm:p-0 overflow-x-hidden ">
+      <main className="bg-productPageBg bg-cover  sm:p-0 overflow-x-hidden ">
         <ProductDetails
           selectedProdId={selectedProdId}
           onAddWishList={onAddWishList}

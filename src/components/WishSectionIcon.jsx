@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function WishPage({ wishList }) {
   return (
     <Link to="/wishlist">
-      <div className="wishicon relative border-2 rounded-[50%] grow shrink-0 border-[#fff] p-[4px]">
+      <div className="wishicon relative border-2 rounded-[50%]  border-[#fff] p-[4px]">
         <img
           className="w-[24px]  my-auto h-[24px]"
           src={WishIcon}

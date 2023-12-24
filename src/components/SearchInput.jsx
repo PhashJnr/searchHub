@@ -7,9 +7,9 @@ function SearchInput({
   onSelectProduct,
 }) {
   return (
-    <div className="searchContainer shrink w-[450px] relative flex justify-center">
+    <div className="searchContainer shrink sm:w-[450px] relative flex justify-center">
       <input
-        className=" border-none mx-auto pl-[6px] py-[6px]  focus:outline-1 rounded-[6px] w-[80%] "
+        className=" border-none mx-auto pl-[6px] py-[6px]  focus:outline-1 rounded-[6px] sm:w-full h-[40px] bg-[#fff] shadow-md "
         type="text"
         placeholder="search product"
         value={searchQuery}

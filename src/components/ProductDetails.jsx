@@ -111,8 +111,8 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
       {!title ? (
         ""
       ) : (
-        <div className="flex flex-col lg:flex-row gap-[50px] p-9 my-[3rem]">
-          <div className="productDetailsImage w-[450px]  flex-none grow">
+        <div className="flex flex-col lg:flex-row gap-[50px] p-9 lg:mt-[3rem]">
+          <div className="productDetailsImage w-[250px] sm:w-[450px]  flex-none grow">
             <div className="overflow-hidden rounded-[15px]">
               <img
                 className="mx-auto object-contain h-full w-full "
@@ -123,11 +123,11 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
             <ProductImages images={photo} onSetPhotos={handleSetPhoto} />
           </div>
 
-          <div className="productDetailsTexts flex-initial px-[50px]  sm:p-0 grow-0 ">
+          <div className="productDetailsTexts flex-initial lg:px-[50px]  sm:p-0 grow-0 ">
             <h2 className="font-productFont text-[23px]  font-bold mb-[1rem]">
               {title}
             </h2>
-            <div className="flex gap-2 p-6 ">
+            <div className="flex gap-2 ">
               <Rating
                 name="half-rating-read"
                 value={prodRating}
@@ -159,10 +159,11 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
                 <span className="font-semibold">{storeName}</span> for{" "}
                 <strong>{price}</strong>
               </p>
+
               <a href={offerPageURL} target="_blank" rel="noopener noreferrer">
                 <Button
                   customClasses={
-                    "bg-[#191919] text-[#fff] my-[1rem] w-[200px]    hover:text-[#fff]  rounded-[6px] font-productFont hover:bg-[#5B5B5B]"
+                    "bg-[#191919] text-[#fff] my-[1rem]  px-[28px]   hover:text-[#fff]  rounded-[6px] font-productFont hover:bg-[#5B5B5B]"
                   }
                   buttonText={"Buy Now"}
                 />
@@ -171,7 +172,7 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
               {isWishListed ? (
                 <Button
                   customClasses={
-                    "bg-[#9EC8B9] text-[#fff] ml-[20px] w-[200px] border-solid border rounded-[6px] border-[#191919] font-productFont  "
+                    "bg-[#9EC8B9] text-[#fff] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  "
                   }
                   buttonText={"Wishlisted"}
                   disabled={isButtonDisabled}
@@ -179,7 +180,7 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
               ) : (
                 <Button
                   customClasses={
-                    "bg-[#ffffff] text-[#191919] ml-[20px] w-[200px] border-solid border rounded-[6px] border-[#191919] font-productFont  hover:text-[#fff] hover:bg-[#191919]"
+                    "bg-[#ffffff] text-[#191919] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  hover:text-[#fff] hover:bg-[#191919]"
                   }
                   buttonText={"Add to Wishlist"}
                   onClick={() => handleAddWishList(product.product_id)}
@@ -236,12 +237,10 @@ function ProductImages({ onSetPhotos, images }) {
 
 function ProductAttributes({ additionalInfo }) {
   return (
-    <div className="additionalInfo self-start">
-      {!additionalInfo ? (
-        ""
-      ) : (
+    <div className="additionalInfo pl-[28px] self-start">
+      {additionalInfo && (
         <>
-          <h1>Additional Info</h1>
+          {Object.keys(additionalInfo).length > 0 && <h1>Additional Info</h1>}
           <ul>
             {Object.entries(additionalInfo).map(([key, value]) => (
               <li key={key}>
