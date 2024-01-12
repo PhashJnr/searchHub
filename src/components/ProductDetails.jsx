@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Rating from "@mui/material/Rating";
+import Alert from "@mui/material/Alert";
 import Button from "./Button";
 import { useLocalStorage } from "../hooks/useLocaleStorage";
 
 const KEY = process.env.REACT_APP_API_KEY;
 
-function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
+function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
   const [product, setProduct] = useLocalStorage({}, "product");
   const [prodRating, setProdRating] = useState(0);
   const [additionalInfo, setAdditionalInfo] = useLocalStorage({}, "infos");
@@ -108,6 +109,24 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList }) {
 
   return (
     <div className="productDetailsContainer mx-auto object-contain  flex items-center flex-col justify-center  lg:w-[1200px] ">
+      {alert ? (
+        <Alert
+          sx={{
+            width: "fit-content",
+            position: "fixed",
+            top: "10px",
+            left: 0,
+            zIndex: 10,
+            right: 0,
+            margin: "auto",
+          }}
+          severity="success"
+        >
+          Item added to wishlist
+        </Alert>
+      ) : (
+        ""
+      )}
       {!title ? (
         ""
       ) : (

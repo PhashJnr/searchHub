@@ -11,6 +11,7 @@ function ProductSearchPage({
   onSelectProduct,
   wishList,
   onAddWishList,
+  alert,
 }) {
   return (
     <>
@@ -29,6 +30,7 @@ function ProductSearchPage({
           selectedProdId={selectedProdId}
           onAddWishList={onAddWishList}
           wishList={wishList}
+          alert={alert}
         />
       </main>
     </>

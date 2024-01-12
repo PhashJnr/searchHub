@@ -17,10 +17,7 @@ module.exports = {
       headerFont: ["Bebas Neue", "sans-serif"],
       productFont: ["Noto Sans Georgian", "sans-serif"],
     },
-    fontSize: {
-      headerFontSize: "84px",
-      textSize: "30px",
-    },
+
     extend: {},
   },
   plugins: [],

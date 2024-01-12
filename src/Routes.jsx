@@ -11,6 +11,8 @@ function RoutesLink({
   selectedProdId,
   wishList,
   onAddWishList,
+  onDeleteWishList,
+  alert,
 }) {
   return (
     <BrowserRouter>
@@ -27,10 +29,20 @@ function RoutesLink({
               selectedProdId={selectedProdId}
               wishList={wishList}
               onAddWishList={onAddWishList}
+              alert={alert}
             />
           }
         />
-        <Route path="/wishlist" element={<Wishlists wishList={wishList} />} />
+        <Route
+          path="/wishlist"
+          element={
+            <Wishlists
+              wishList={wishList}
+              onDeleteWishList={onDeleteWishList}
+              alert={alert}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

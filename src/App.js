@@ -11,6 +11,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [selectedProdId, setSelectedProdId] = useState("null");
   const [wishList, setWishList] = useLocalStorage([], "wish");
+  const [alert, setAlert] = useState(false);
 
   function handleSelectedProduct(id) {
     setSelectedProdId((selectedId) => (id === selectedId ? null : id));
@@ -18,6 +19,22 @@ function App() {
 
   function handleAddWishList(product) {
     setWishList((wishlist) => [...wishlist, product]);
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 3000);
+  }
+
+  function handleRemoveWishList(id) {
+    const updatedWishList = wishList.filter(
+      (product) => product.productID !== id
+    );
+
+    setWishList(updatedWishList);
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 3000);
   }
 
   // function handleAddWishList(product) {
@@ -82,17 +99,17 @@ function App() {
   }, [searchQuery]);
 
   return (
-    <div className="">
-      <RoutesLink
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        products={products}
-        onSelectProduct={handleSelectedProduct}
-        selectedProdId={selectedProdId}
-        wishList={wishList}
-        onAddWishList={handleAddWishList}
-      />
-    </div>
+    <RoutesLink
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      products={products}
+      onSelectProduct={handleSelectedProduct}
+      selectedProdId={selectedProdId}
+      wishList={wishList}
+      onAddWishList={handleAddWishList}
+      onDeleteWishList={handleRemoveWishList}
+      alert={alert}
+    />
   );
 }
 

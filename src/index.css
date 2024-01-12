@@ -17,6 +17,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  position: relative;
 }
 
 /* Styles for the container with overflow */
