@@ -109,6 +109,7 @@ function App() {
       onAddWishList={handleAddWishList}
       onDeleteWishList={handleRemoveWishList}
       alert={alert}
+      setAlert={setAlert}
     />
   );
 }

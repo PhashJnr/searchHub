@@ -4,13 +4,10 @@ import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-function Wishlists({ wishList, onDeleteWishList, alert }) {
+function Wishlists({ wishList, onDeleteWishList, alert, setAlert }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { title } = wishList;
-
-  console.log("title", title);
   return (
     <>
       <Navbar></Navbar>
@@ -38,7 +35,10 @@ function Wishlists({ wishList, onDeleteWishList, alert }) {
           <Button
             customClasses="px-[16px] py-[7px]  rounded-[6px] border"
             variant="primary"
-            onClick={() => navigate("/productpage")}
+            onClick={() => {
+              navigate("/productpage");
+              setAlert(false);
+            }}
             buttonText="&larr; Back"
           />
           <div className="wishlistContent ">

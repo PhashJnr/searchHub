@@ -1,10 +1,13 @@
 import WishIcon from "../assets/icons/wish-icon.svg";
 import { Link } from "react-router-dom";
 
-function WishPage({ wishList }) {
+function WishPage({ wishList, setAlert }) {
   return (
     <Link to="/wishlist">
-      <div className="wishicon relative border-2 rounded-[50%]  border-[#fff] p-[4px]">
+      <div
+        onClick={() => setAlert(false)}
+        className="wishicon relative border-2 rounded-[50%]  border-[#fff] p-[4px]"
+      >
         <img
           className="w-[24px]  my-auto h-[24px]"
           src={WishIcon}

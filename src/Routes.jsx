@@ -13,6 +13,7 @@ function RoutesLink({
   onAddWishList,
   onDeleteWishList,
   alert,
+  setAlert,
 }) {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function RoutesLink({
               wishList={wishList}
               onAddWishList={onAddWishList}
               alert={alert}
+              setAlert={setAlert}
             />
           }
         />
@@ -40,6 +42,7 @@ function RoutesLink({
               wishList={wishList}
               onDeleteWishList={onDeleteWishList}
               alert={alert}
+              setAlert={setAlert}
             />
           }
         />

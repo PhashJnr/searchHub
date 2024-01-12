@@ -6,7 +6,13 @@ import { useLocalStorage } from "../hooks/useLocaleStorage";
 
 const KEY = process.env.REACT_APP_API_KEY;
 
-function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
+function ProductDetails({
+  selectedProdId,
+  onAddWishList,
+  wishList,
+  alert,
+  setAlert,
+}) {
   const [product, setProduct] = useLocalStorage({}, "product");
   const [prodRating, setProdRating] = useState(0);
   const [additionalInfo, setAdditionalInfo] = useLocalStorage({}, "infos");
@@ -14,10 +20,6 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const isButtonDisabled = true;
-
-  console.log("wishList", wishList);
-
-  console.log("productID", product.product_id);
 
   function handleAddWishList(id) {
     const isProductInWishlist = wishList.some(
@@ -52,8 +54,6 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
     offer,
     typical_price_range: priceRange,
   } = product || {};
-
-  console.log("prduct id", productID);
 
   const {
     store_name: storeName,
@@ -174,8 +174,8 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
 
             <div>
               <p>
-                Available now on{" "}
-                <span className="font-semibold">{storeName}</span> for{" "}
+                Available now on
+                <span className="font-semibold">{storeName}</span> for
                 <strong>{price}</strong>
               </p>
 
@@ -202,7 +202,10 @@ function ProductDetails({ selectedProdId, onAddWishList, wishList, alert }) {
                     "bg-[#ffffff] text-[#191919] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  hover:text-[#fff] hover:bg-[#191919]"
                   }
                   buttonText={"Add to Wishlist"}
-                  onClick={() => handleAddWishList(product.product_id)}
+                  onClick={() => {
+                    handleAddWishList(product.product_id);
+                    setAlert(true);
+                  }}
                 />
               )}
 

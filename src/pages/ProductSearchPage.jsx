@@ -12,6 +12,7 @@ function ProductSearchPage({
   wishList,
   onAddWishList,
   alert,
+  setAlert,
 }) {
   return (
     <>
@@ -22,7 +23,7 @@ function ProductSearchPage({
           products={products}
           onSelectProduct={onSelectProduct}
         />
-        <WishSectionIcon wishList={wishList} />
+        <WishSectionIcon wishList={wishList} setAlert={setAlert} />
       </Navbar>
 
       <main className="bg-productPageBg bg-cover  sm:p-0 overflow-x-hidden ">
@@ -31,6 +32,7 @@ function ProductSearchPage({
           onAddWishList={onAddWishList}
           wishList={wishList}
           alert={alert}
+          setAlert={setAlert}
         />
       </main>
     </>
