@@ -6,6 +6,7 @@ import Wishlists from "./pages/Wishlists";
 function RoutesLink({
   searchQuery,
   setSearchQuery,
+  error,
   products,
   onSelectProduct,
   selectedProdId,
@@ -14,6 +15,7 @@ function RoutesLink({
   onDeleteWishList,
   alert,
   setAlert,
+  isLoading,
 }) {
   return (
     <BrowserRouter>
@@ -25,6 +27,8 @@ function RoutesLink({
             <ProductSearchPage
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
+              error={error}
+              isLoading={isLoading}
               products={products}
               onSelectProduct={onSelectProduct}
               selectedProdId={selectedProdId}

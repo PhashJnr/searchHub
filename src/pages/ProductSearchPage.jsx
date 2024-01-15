@@ -6,6 +6,8 @@ import WishSectionIcon from "../components/WishSectionIcon";
 function ProductSearchPage({
   searchQuery,
   setSearchQuery,
+  error,
+  isLoading,
   products,
   selectedProdId,
   onSelectProduct,
@@ -14,19 +16,28 @@ function ProductSearchPage({
   alert,
   setAlert,
 }) {
+  function closeSearchResult() {
+    setSearchQuery("");
+  }
+
   return (
     <>
       <Navbar>
         <SearchInput
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          error={error}
+          isLoading={isLoading}
           products={products}
           onSelectProduct={onSelectProduct}
         />
         <WishSectionIcon wishList={wishList} setAlert={setAlert} />
       </Navbar>
 
-      <main className="bg-productPageBg bg-cover  sm:p-0 overflow-x-hidden ">
+      <main
+        onClick={closeSearchResult}
+        className="bg-productPageBg bg-cover relative h-[100vh] sm:p-0 overflow-x-hidden "
+      >
         <ProductDetails
           selectedProdId={selectedProdId}
           onAddWishList={onAddWishList}

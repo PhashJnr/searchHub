@@ -17,10 +17,9 @@ function Wishlists({ wishList, onDeleteWishList, alert, setAlert }) {
             sx={{
               width: "fit-content",
               position: "fixed",
-              top: "10px",
-              left: 0,
+              bottom: "20px",
+              right: "20px",
               zIndex: 10,
-              right: 0,
               margin: "auto",
             }}
             severity="success"
@@ -62,7 +61,6 @@ function Wishlists({ wishList, onDeleteWishList, alert, setAlert }) {
 }
 
 function Wishlist({ wishList, onDeleteWishList, setIsOpen, isOpen }) {
-  console.log("wishlist", wishList);
   return (
     <div className="mt-10">
       {wishList.map((item) => (
@@ -93,10 +91,13 @@ function Wishlist({ wishList, onDeleteWishList, setIsOpen, isOpen }) {
                   buttonText="Remove"
                   customClasses="border bg-[#D80032] text-[#fff] "
                 />
-                <Button
-                  buttonText="Buy Now"
-                  customClasses="bg-[#000] text-[#fff] "
-                />
+
+                <a href={item.offerPageURL} target="_blank" rel="noreferrer">
+                  <Button
+                    buttonText="Buy Now"
+                    customClasses="bg-[#000] text-[#fff] "
+                  />
+                </a>
               </div>
             </div>
           </div>

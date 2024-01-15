@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Navbar({ children }) {
   return (
@@ -15,10 +16,12 @@ function Navbar({ children }) {
 function Logo() {
   return (
     <>
-      <h1 className="text-headerColor shrink text-[24px] hidden sm:block ">
-        searchHub
-      </h1>
-      <h1 className="text-headerColor shrink text-[24px] sm:hidden ">sH</h1>
+      <Link to="/">
+        <h1 className="text-headerColor shrink text-[24px] hidden sm:block ">
+          searchHub
+        </h1>
+        <h1 className="text-headerColor shrink text-[24px] sm:hidden ">sH</h1>
+      </Link>
     </>
   );
 }

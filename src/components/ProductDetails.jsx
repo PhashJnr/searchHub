@@ -18,6 +18,7 @@ function ProductDetails({
   const [additionalInfo, setAdditionalInfo] = useLocalStorage({}, "infos");
   const [photo, setPhoto] = useLocalStorage([], "photo");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const isButtonDisabled = true;
 
@@ -35,6 +36,7 @@ function ProductDetails({
         shipping,
         ratingFromProduct,
         storeName,
+        offerPageURL,
       };
       onAddWishList(newWishList);
     }
@@ -80,6 +82,7 @@ function ProductDetails({
   useEffect(() => {
     async function productDetail() {
       try {
+        // setIsLoading(true);
         const res = await fetch(
           `https://real-time-product-search.p.rapidapi.com/product-details?product_id=${selectedProdId}`,
           {
@@ -99,7 +102,7 @@ function ProductDetails({
         setPhoto(Array.isArray(productPhotos) ? productPhotos : []);
         setAdditionalInfo(data.data.product.product_attributes);
       } catch (err) {
-        console.error(err.message);
+        // console.error(err.message);
       }
     }
 
@@ -108,123 +111,128 @@ function ProductDetails({
   }, [selectedProdId, setAdditionalInfo, setPhoto, setProduct]);
 
   return (
-    <div className="productDetailsContainer mx-auto object-contain  flex items-center flex-col justify-center  lg:w-[1200px] ">
-      {alert ? (
-        <Alert
-          sx={{
-            width: "fit-content",
-            position: "fixed",
-            top: "10px",
-            left: 0,
-            zIndex: 10,
-            right: 0,
-            margin: "auto",
-          }}
-          severity="success"
-        >
-          Item added to wishlist
-        </Alert>
-      ) : (
-        ""
-      )}
-      {!title ? (
-        ""
-      ) : (
-        <div className="flex flex-col lg:flex-row gap-[50px] p-9 lg:mt-[3rem]">
-          <div className="productDetailsImage w-[250px] sm:w-[450px]  flex-none grow">
-            <div className="overflow-hidden rounded-[15px]">
-              <img
-                className="mx-auto object-contain h-full w-full "
-                src={photo[selectedImageIndex]}
-                alt={title}
-              />
-            </div>
-            <ProductImages images={photo} onSetPhotos={handleSetPhoto} />
-          </div>
-
-          <div className="productDetailsTexts flex-initial lg:px-[50px]  sm:p-0 grow-0 ">
-            <h2 className="font-productFont text-[23px]  font-bold mb-[1rem]">
-              {title}
-            </h2>
-            <div className="flex gap-2 ">
-              <Rating
-                name="half-rating-read"
-                value={prodRating}
-                onChange={(event, newValue) => handleRatingChange(newValue)}
-                precision={0.1}
-                readOnly
-              />
-              <strong>{prodRating}</strong>
-              <p>
-                <a className="underline  mr-1 " href={reviewURL}>
-                  ({reviewNum})
-                </a>
-                reviews
-              </p>
+    <>
+      <div className="productDetailsContainer mx-auto object-contain  flex items-center flex-col justify-center  lg:w-[1200px] ">
+        {alert ? (
+          <Alert
+            sx={{
+              width: "fit-content",
+              position: "fixed",
+              bottom: "10px",
+              right: "10px",
+              zIndex: 10,
+              margin: "auto",
+            }}
+            severity="success"
+          >
+            Item added to wishlist
+          </Alert>
+        ) : (
+          ""
+        )}
+        {!title ? (
+          ""
+        ) : (
+          <div className="flex flex-col lg:flex-row gap-[50px] p-9 lg:mt-[3rem]">
+            <div className="productDetailsImage w-[250px] sm:w-[450px]  flex-none grow">
+              <div className="overflow-hidden rounded-[15px]">
+                <img
+                  className="mx-auto object-contain h-full w-full "
+                  src={photo[selectedImageIndex]}
+                  alt={title}
+                />
+              </div>
+              <ProductImages images={photo} onSetPhotos={handleSetPhoto} />
             </div>
 
-            {priceRange && (
-              <h1 className="font-semibold text-[18px] ml-[9px] sm:ml-0 mt-[15px]">
-                Price range
-                <span className="ml-[7px] text-[26px]">
-                  {priceRange[0]} - {priceRange[1]}
-                </span>
-              </h1>
-            )}
-
-            <div>
-              <p>
-                Available now on
-                <span className="font-semibold">{storeName}</span> for
-                <strong>{price}</strong>
-              </p>
-
-              <a href={offerPageURL} target="_blank" rel="noopener noreferrer">
-                <Button
-                  customClasses={
-                    "bg-[#191919] text-[#fff] my-[1rem]  px-[28px]   hover:text-[#fff]  rounded-[6px] font-productFont hover:bg-[#5B5B5B]"
-                  }
-                  buttonText={"Buy Now"}
+            <div className="productDetailsTexts flex-initial lg:px-[50px]  sm:p-0 grow-0 ">
+              <h2 className="font-productFont text-[23px]  font-bold mb-[1rem]">
+                {title}
+              </h2>
+              <div className="flex gap-2 ">
+                <Rating
+                  name="half-rating-read"
+                  value={prodRating}
+                  onChange={(event, newValue) => handleRatingChange(newValue)}
+                  precision={0.1}
+                  readOnly
                 />
-              </a>
+                <strong>{prodRating}</strong>
+                <p>
+                  <a className="underline  mr-1 " href={reviewURL}>
+                    ({reviewNum})
+                  </a>
+                  reviews
+                </p>
+              </div>
 
-              {isWishListed ? (
-                <Button
-                  customClasses={
-                    "bg-[#9EC8B9] text-[#fff] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  "
-                  }
-                  buttonText={"Wishlisted"}
-                  disabled={isButtonDisabled}
-                />
-              ) : (
-                <Button
-                  customClasses={
-                    "bg-[#ffffff] text-[#191919] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  hover:text-[#fff] hover:bg-[#191919]"
-                  }
-                  buttonText={"Add to Wishlist"}
-                  onClick={() => {
-                    handleAddWishList(product.product_id);
-                    setAlert(true);
-                  }}
-                />
+              {priceRange && (
+                <h1 className="font-semibold text-[18px] ml-[9px] sm:ml-0 mt-[15px]">
+                  Price range
+                  <span className="ml-[7px] text-[26px]">
+                    {priceRange[0]} - {priceRange[1]}
+                  </span>
+                </h1>
               )}
 
-              <p className="opacity-50 mt-[-9px]">
-                {shipping === "Free delivery"
-                  ? "This product is available for free shipping"
-                  : "Free shipping not available"}
+              <div>
+                <p>
+                  Available now on
+                  <span className="font-semibold">{storeName}</span> for
+                  <strong>{price}</strong>
+                </p>
+
+                <a
+                  href={offerPageURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    customClasses={
+                      "bg-[#191919] text-[#fff] my-[1rem]  px-[28px]   hover:text-[#fff]  rounded-[6px] font-productFont hover:bg-[#5B5B5B]"
+                    }
+                    buttonText={"Buy Now"}
+                  />
+                </a>
+
+                {isWishListed ? (
+                  <Button
+                    customClasses={
+                      "bg-[#9EC8B9] text-[#fff] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  "
+                    }
+                    buttonText={"Wishlisted"}
+                    disabled={isButtonDisabled}
+                  />
+                ) : (
+                  <Button
+                    customClasses={
+                      "bg-[#ffffff] text-[#191919] ml-[20px] border-solid border rounded-[6px] border-[#191919] font-productFont  hover:text-[#fff] hover:bg-[#191919]"
+                    }
+                    buttonText={"Add to Wishlist"}
+                    onClick={() => {
+                      handleAddWishList(product.product_id);
+                      setAlert(true);
+                    }}
+                  />
+                )}
+
+                <p className="opacity-50 mt-[-9px]">
+                  {shipping === "Free delivery"
+                    ? "This product is available for free shipping"
+                    : "Free shipping not available"}
+                </p>
+              </div>
+
+              <p className="font-productFont text-[14px] mt-[3rem] sm:p-0 opacity-70">
+                {description}
               </p>
             </div>
-
-            <p className="font-productFont text-[14px] mt-[3rem] sm:p-0 opacity-70">
-              {description}
-            </p>
           </div>
-        </div>
-      )}
+        )}
 
-      <ProductAttributes additionalInfo={additionalInfo} />
-    </div>
+        <ProductAttributes additionalInfo={additionalInfo} />
+      </div>
+    </>
   );
 }
 

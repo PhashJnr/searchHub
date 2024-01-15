@@ -12,6 +12,8 @@ function App() {
   const [selectedProdId, setSelectedProdId] = useState("null");
   const [wishList, setWishList] = useLocalStorage([], "wish");
   const [alert, setAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   function handleSelectedProduct(id) {
     setSelectedProdId((selectedId) => (id === selectedId ? null : id));
@@ -37,10 +39,6 @@ function App() {
     }, 3000);
   }
 
-  // function handleAddWishList(product) {
-  //   setWishList(product);
-  // }
-
   useEffect(() => {
     function handleClick() {
       setSelectedProdId(null);
@@ -52,13 +50,12 @@ function App() {
     return document.body.removeEventListener("click", handleClick);
   }, [setSelectedProdId, setSearchQuery]);
 
-  // console.log(products);
-
   useEffect(() => {
     const controller = new AbortController();
 
     async function fetchData() {
       try {
+        setIsLoading(true);
         const res = await fetch(
           `https://real-time-product-search.p.rapidapi.com/search?q=${searchQuery}&limit=10`,
           {
@@ -73,23 +70,24 @@ function App() {
 
         if (!res) return;
 
-        // console.log(res);
-
         if (!res.ok) {
           throw new Error("Network response was not ok!");
         }
 
         const data = await res.json();
-        // console.log(data);
-        // setSearchQuery(data);
+
         setProducts(data.data);
-        // console.log(data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 5000);
       } catch (err) {
-        console.error(err.message);
+        setTimeout(() => {
+          setError(err.message);
+        }, 3000);
       }
     }
 
-    if (searchQuery.length < 3) return;
+    if (searchQuery.length < 1) return;
 
     fetchData();
 
@@ -102,6 +100,7 @@ function App() {
     <RoutesLink
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
+      error={error}
       products={products}
       onSelectProduct={handleSelectedProduct}
       selectedProdId={selectedProdId}
@@ -110,6 +109,7 @@ function App() {
       onDeleteWishList={handleRemoveWishList}
       alert={alert}
       setAlert={setAlert}
+      isLoading={isLoading}
     />
   );
 }
